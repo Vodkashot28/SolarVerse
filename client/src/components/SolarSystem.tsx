@@ -1,11 +1,11 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense } from "react";
-import { Sun } from "./Sun";
-import { Planet } from "./Planet";
+import { Sun } from "@/components/Sun";
+import { Planet } from "@/components/Planet";
 import { planetsData } from "@/data/planets";
-import { GameUI } from "./GameUI";
-import { PlanetFactCard } from "./PlanetFactCard";
+import { GameUI } from "@/components/GameUI";
+import { PlanetFactCard } from "@/components/PlanetFactCard";
 import * as THREE from "three";
 
 export function SolarSystem() {

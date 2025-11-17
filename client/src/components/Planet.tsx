@@ -48,7 +48,7 @@ export function Planet({ data }: PlanetProps) {
     }
   });
 
-  const handleClick = (e: THREE.Event) => {
+  const handleClick = (e: any) => {
     e.stopPropagation();
     console.log(`Clicked on ${data.name}`);
     selectPlanet(data.name);
