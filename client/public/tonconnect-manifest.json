@@ -1,7 +1,15 @@
 {
-  "url": "https://70a39c78-fc7e-49fc-888b-dd758b29fc03-00-3v4dusol57fdv.riker.replit.dev",
-  "name": "Solar System Explorer - TON Game",
-  "iconUrl": "https://ton.org/download/ton_symbol.png",
-  "termsOfUseUrl": "https://ton.org/",
-  "privacyPolicyUrl": "https://ton.org/"
+  "name": "SolarVerse",
+  "short_name": "SolarVerse",
+  "description": "Solar system explorer - TON crypto game",
+  "start_url": "https://your-domain.com", // This will be your Netlify URL or local dev URL
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
+
