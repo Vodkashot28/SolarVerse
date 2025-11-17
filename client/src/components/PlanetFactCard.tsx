@@ -1,10 +1,13 @@
 import { useSolarSystem } from "@/lib/stores/useSolarSystem";
 import { planetsData } from "@/data/planets";
-import { X, Award } from "lucide-react";
+import { X, Award, Gamepad2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { AsteroidGame } from "@/components/AsteroidGame";
 
 export function PlanetFactCard() {
   const { selectedPlanet, selectPlanet, isPlanetDiscovered } = useSolarSystem();
+  const [showMiniGame, setShowMiniGame] = useState(false);
   
   if (!selectedPlanet) return null;
 
@@ -12,6 +15,7 @@ export function PlanetFactCard() {
   if (!planet) return null;
 
   const isDiscovered = isPlanetDiscovered(planet.name);
+  const hasMiniGame = ["Mars", "Jupiter", "Saturn"].includes(planet.name);
 
   return (
     <AnimatePresence>
@@ -68,8 +72,20 @@ export function PlanetFactCard() {
               <p className="text-yellow-400 font-bold">+{planet.tokenReward} StarTokens Earned!</p>
             </div>
           )}
+
+          {isDiscovered && hasMiniGame && (
+            <button
+              onClick={() => setShowMiniGame(true)}
+              className="mt-3 w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+              <Gamepad2 className="w-5 h-5" />
+              Play Mini-Game
+            </button>
+          )}
         </div>
       </motion.div>
+      
+      {showMiniGame && <AsteroidGame planetName={planet.name} onClose={() => setShowMiniGame(false)} />}
     </AnimatePresence>
   );
 }

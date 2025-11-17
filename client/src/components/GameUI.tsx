@@ -1,28 +1,46 @@
 import { useSolarSystem } from "@/lib/stores/useSolarSystem";
 import { planetsData } from "@/data/planets";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
-import { useEffect } from "react";
-import { Coins, Trophy, Target } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Coins, Trophy, Target, BookOpen, Users } from "lucide-react";
+import { CollectionView } from "@/components/CollectionView";
+import { ChallengesPanel } from "@/components/ChallengesPanel";
+import { Leaderboard } from "@/components/Leaderboard";
+import { useChallenges } from "@/lib/stores/useChallenges";
 
 export function GameUI() {
   const { totalTokens, discoveredPlanets, setWalletAddress, getNextUndiscoveredPlanet } = useSolarSystem();
+  const { checkChallengeProgress } = useChallenges();
   const address = useTonAddress();
   const nextPlanet = getNextUndiscoveredPlanet();
+  const [showCollection, setShowCollection] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   useEffect(() => {
     setWalletAddress(address || null);
   }, [address, setWalletAddress]);
 
+  useEffect(() => {
+    const latestPlanet = discoveredPlanets.length > 0 
+      ? discoveredPlanets[discoveredPlanets.length - 1].name 
+      : null;
+    checkChallengeProgress(discoveredPlanets.length, latestPlanet);
+  }, [discoveredPlanets, checkChallengeProgress]);
+
   const progress = (discoveredPlanets.length / planetsData.length) * 100;
 
   return (
-    <div className="fixed inset-0 pointer-events-none">
-      <div className="absolute top-4 left-4 pointer-events-auto">
-        <div className="bg-black/80 backdrop-blur-md border border-white/20 rounded-lg p-4 min-w-[280px]">
-          <h1 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-            <span className="text-3xl">🌌</span>
-            Solar System Explorer
-          </h1>
+    <>
+      {showCollection && <CollectionView onClose={() => setShowCollection(false)} />}
+      {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
+      
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-4 left-4 pointer-events-auto">
+          <div className="bg-black/80 backdrop-blur-md border border-white/20 rounded-lg p-4 min-w-[280px]">
+            <h1 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-3xl">🌌</span>
+              Solar System Explorer
+            </h1>
           
           <div className="space-y-3">
             <div className="flex items-center justify-between bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-lg p-3">
@@ -66,14 +84,32 @@ export function GameUI() {
                 <p className="text-white font-bold text-sm">🎉 ALL PLANETS DISCOVERED! 🎉</p>
               </div>
             )}
+            
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => setShowCollection(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-3 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+              >
+                <BookOpen className="w-4 h-4" />
+                Collection
+              </button>
+              <button
+                onClick={() => setShowLeaderboard(true)}
+                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-3 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+              >
+                <Users className="w-4 h-4" />
+                Rankings
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute top-4 right-4 pointer-events-auto">
+      <div className="absolute top-4 right-4 pointer-events-auto space-y-4">
         <div className="bg-black/80 backdrop-blur-md border border-white/20 rounded-lg p-3">
           <TonConnectButton />
         </div>
+        <ChallengesPanel />
       </div>
 
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 pointer-events-auto">
@@ -84,6 +120,7 @@ export function GameUI() {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

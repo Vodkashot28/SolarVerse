@@ -17,6 +17,7 @@ interface SolarSystemState {
   discoverPlanet: (planetName: string) => void;
   selectPlanet: (planetName: string | null) => void;
   setWalletAddress: (address: string | null) => void;
+  addTokens: (amount: number) => void;
   isPlanetDiscovered: (planetName: string) => boolean;
   canDiscoverPlanet: (planetName: string) => boolean;
   getNextUndiscoveredPlanet: () => string | null;
@@ -66,6 +67,12 @@ export const useSolarSystem = create<SolarSystemState>()(
 
       setWalletAddress: (address: string | null) => {
         set({ walletAddress: address });
+      },
+
+      addTokens: (amount: number) => {
+        set((state) => ({
+          totalTokens: state.totalTokens + amount
+        }));
       },
 
       isPlanetDiscovered: (planetName: string) => {

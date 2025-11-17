@@ -1,3 +1,5 @@
+export type PlanetRarity = "Common" | "Rare" | "Epic" | "Legendary";
+
 export interface PlanetData {
   name: string;
   size: number;
@@ -6,6 +8,12 @@ export interface PlanetData {
   orbitSpeed: number;
   rotationSpeed: number;
   tokenReward: number;
+  rarity: PlanetRarity;
+  stats: {
+    explorationDifficulty: number;
+    scientificValue: number;
+    uniqueness: number;
+  };
   facts: {
     distance: string;
     diameter: string;
@@ -27,6 +35,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.04,
     rotationSpeed: 0.001,
     tokenReward: 10,
+    rarity: "Common",
+    stats: {
+      explorationDifficulty: 3,
+      scientificValue: 6,
+      uniqueness: 5
+    },
     facts: {
       distance: "57.9 million km from Sun",
       diameter: "4,879 km",
@@ -46,6 +60,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.015,
     rotationSpeed: -0.0005,
     tokenReward: 15,
+    rarity: "Common",
+    stats: {
+      explorationDifficulty: 8,
+      scientificValue: 7,
+      uniqueness: 7
+    },
     facts: {
       distance: "108.2 million km from Sun",
       diameter: "12,104 km",
@@ -65,6 +85,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.01,
     rotationSpeed: 0.002,
     tokenReward: 20,
+    rarity: "Rare",
+    stats: {
+      explorationDifficulty: 1,
+      scientificValue: 10,
+      uniqueness: 10
+    },
     facts: {
       distance: "149.6 million km from Sun",
       diameter: "12,742 km",
@@ -84,6 +110,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.008,
     rotationSpeed: 0.0018,
     tokenReward: 25,
+    rarity: "Rare",
+    stats: {
+      explorationDifficulty: 5,
+      scientificValue: 9,
+      uniqueness: 8
+    },
     facts: {
       distance: "227.9 million km from Sun",
       diameter: "6,779 km",
@@ -103,6 +135,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.002,
     rotationSpeed: 0.004,
     tokenReward: 40,
+    rarity: "Epic",
+    stats: {
+      explorationDifficulty: 9,
+      scientificValue: 9,
+      uniqueness: 9
+    },
     facts: {
       distance: "778.5 million km from Sun",
       diameter: "139,820 km",
@@ -122,6 +160,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.0009,
     rotationSpeed: 0.0038,
     tokenReward: 50,
+    rarity: "Epic",
+    stats: {
+      explorationDifficulty: 8,
+      scientificValue: 10,
+      uniqueness: 10
+    },
     facts: {
       distance: "1.43 billion km from Sun",
       diameter: "116,460 km",
@@ -141,6 +185,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.0004,
     rotationSpeed: 0.003,
     tokenReward: 60,
+    rarity: "Legendary",
+    stats: {
+      explorationDifficulty: 10,
+      scientificValue: 8,
+      uniqueness: 9
+    },
     facts: {
       distance: "2.87 billion km from Sun",
       diameter: "50,724 km",
@@ -160,6 +210,12 @@ export const planetsData: PlanetData[] = [
     orbitSpeed: 0.0001,
     rotationSpeed: 0.0032,
     tokenReward: 75,
+    rarity: "Legendary",
+    stats: {
+      explorationDifficulty: 10,
+      scientificValue: 9,
+      uniqueness: 10
+    },
     facts: {
       distance: "4.5 billion km from Sun",
       diameter: "49,244 km",

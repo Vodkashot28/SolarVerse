@@ -2,7 +2,7 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { SolarSystem } from "./components/SolarSystem";
 import "@fontsource/inter";
 
-const manifestUrl = "https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json";
+const manifestUrl = window.location.origin + "/tonconnect-manifest.json";
 
 function App() {
   return (
