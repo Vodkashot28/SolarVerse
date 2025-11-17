@@ -2,7 +2,7 @@
   "name": "SolarVerse",
   "short_name": "SolarVerse",
   "description": "Solar system explorer - TON crypto game",
-  "start_url": "https://your-domain.com", // This will be your Netlify URL or local dev URL
+  "start_url": "https://solar-verse.vercel.app", // This will be your Netlify URL or local dev URL
   "display": "standalone",
   "icons": [
     {
