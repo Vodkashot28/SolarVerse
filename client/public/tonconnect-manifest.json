@@ -1,15 +1,7 @@
 {
+  "url": "https://solar-verse.vercel.app",
   "name": "SolarVerse",
-  "short_name": "SolarVerse",
-  "description": "Solar system explorer - TON crypto game",
-  "start_url": "https://solar-verse.vercel.app", // This will be your Netlify URL or local dev URL
-  "display": "standalone",
-  "icons": [
-    {
-      "src": "/assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "iconUrl": "https://solar-verse.vercel.app/assets/icon-512.png",
+  "termsOfUseUrl": "https://solar-verse.vercel.app/terms",
+  "privacyPolicyUrl": "https://solar-verse.vercel.app/privacy"
 }
-
