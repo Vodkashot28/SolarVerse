@@ -9,7 +9,7 @@ function App() {
     <TonConnectUIProvider 
       manifestUrl={manifestUrl}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/your_bot_name'
+        twaReturnUrl: 'https://t.me/solarversx_bot'
       }}
     >
       <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
