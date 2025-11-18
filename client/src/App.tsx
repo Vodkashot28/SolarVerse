@@ -2,17 +2,26 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { SolarSystem } from "./components/SolarSystem";
 import "@fontsource/inter";
 
-const manifestUrl = window.location.origin + "/tonconnect-manifest.json";
+// Use your production domain for manifest
+const manifestUrl = "https://solar-system.xyz/tonconnect-manifest.json";
 
 function App() {
   return (
-    <TonConnectUIProvider 
+    <TonConnectUIProvider
       manifestUrl={manifestUrl}
       actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/solarversx_bot'
+        // Telegram bot return URL
+        twaReturnUrl: "https://t.me/solarversx_bot?startapp=solarverse"
       }}
     >
-      <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
         <SolarSystem />
       </div>
     </TonConnectUIProvider>
