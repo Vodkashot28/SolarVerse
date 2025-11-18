@@ -1,12 +1,8 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
-import glsl from "vite-plugin-glsl";
-
 export default defineConfig({
+  base: './', // 👈 ensures relative asset paths for hydration
   plugins: [
     react(),
-    glsl(), // GLSL shader support
+    glsl(),
   ],
   resolve: {
     alias: {
@@ -21,4 +17,3 @@ export default defineConfig({
   },
   assetsInclude: ["**/*.gltf", "**/*.glb", "**/*.mp3", "**/*.ogg", "**/*.wav"],
 });
-
