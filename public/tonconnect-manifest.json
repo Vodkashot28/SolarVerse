@@ -3,5 +3,6 @@
   "name": "SolarVerse",
   "iconUrl": "https://solar-verse.vercel.app/assets/icon-512.png",
   "termsOfUseUrl": "https://solar-verse.vercel.app/terms",
-  "privacyPolicyUrl": "https://solar-verse.vercel.app/privacy"
+  "privacyPolicyUrl": "https://solar-verse.vercel.app/privacy",
+  "twaReturnUrl": "https://t.me/solarversx_bot?startapp=solarverse"
 }
