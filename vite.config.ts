@@ -4,6 +4,8 @@ import react from "@vitejs/plugin-react";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import glsl from "vite-plugin-glsl";
+// Optional: bundle visualizer for analysis
+import { visualizer } from "rollup-plugin-visualizer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,6 +14,7 @@ export default defineConfig({
   plugins: [
     react(),
     glsl(), // GLSL shader support
+    visualizer({ filename: "stats.html", open: false }), // generates bundle stats
   ],
   resolve: {
     alias: {
