@@ -1,5 +1,5 @@
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { SolarSystem } from "./components/SolarSystem";
+import { SolarSystem } from "./components/SolarSystem.tsx";
 import "@fontsource/inter";
 
 // Use your production domain for manifest
@@ -28,4 +28,7 @@ function App() {
   );
 }
 
+// CRITICAL FIX: This line tells the module system (Vite/Rollup) that 
+// the function 'App' is the main export of this file.
 export default App;
+
