@@ -218,8 +218,6 @@ users {
 - Path aliases (`@/` for client, `@shared/` for shared code)
 - Incremental builds with tsBuildInfoFile
 
-**Error Handling:** `@replit/vite-plugin-runtime-error-modal` for development error overlay
-
 ### Additional Services (Prepared but Not Active)
 
 - **TanStack Query** - Prepared for future API data fetching
