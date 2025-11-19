@@ -1,8 +1,8 @@
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { SolarSystem } from "./components/SolarSystem.tsx";
+import { SolarSystem } from "./components/SolarSystem";
+import { GameUI } from "./components/GameUI";
 import "@fontsource/inter";
 
-// Use your production domain for manifest
 const manifestUrl = "https://solar-system.xyz/tonconnect-manifest.json";
 
 function App() {
@@ -10,7 +10,6 @@ function App() {
     <TonConnectUIProvider
       manifestUrl={manifestUrl}
       actionsConfiguration={{
-        // Telegram bot return URL
         twaReturnUrl: "https://t.me/solarversx_bot?startapp=solarverse"
       }}
     >
@@ -22,13 +21,13 @@ function App() {
           overflow: "hidden",
         }}
       >
+        {/* Background Solar System Canvas */}
         <SolarSystem />
+        {/* Overlay HUD */}
+        <GameUI />
       </div>
     </TonConnectUIProvider>
   );
 }
 
-// CRITICAL FIX: This line tells the module system (Vite/Rollup) that 
-// the function 'App' is the main export of this file.
 export default App;
-
