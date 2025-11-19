@@ -24,6 +24,20 @@ export default defineConfig({
     // Output to 'dist' so Vercel can serve static assets
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
+
+    // Performance optimizations
+    chunkSizeWarningLimit: 1000, // raise limit to 1MB before warnings
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor libraries into separate chunks
+          react: ["react", "react-dom"],
+          ton: ["@tonconnect/ui-react"],
+          icons: ["lucide-react"],
+          motion: ["framer-motion"],
+        },
+      },
+    },
   },
   // Ensure large 3D and audio assets are correctly processed
   assetsInclude: ["**/*.gltf", "**/*.glb", "**/*.mp3", "**/*.ogg", "**/*.wav"],
