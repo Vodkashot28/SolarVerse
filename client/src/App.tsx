@@ -3,15 +3,15 @@ import { SolarSystem } from "./components/SolarSystem";
 import { GameUI } from "./components/GameUI";
 import "@fontsource/inter";
 
-const manifestUrl = "https://solar-system.xyz/tonconnect-manifest.json";
+// Values pulled from .env (must be prefixed with VITE_)
+const manifestUrl = import.meta.env.VITE_MANIFEST_URL;
+const twaReturnUrl = import.meta.env.VITE_TWA_RETURN_URL;
 
 function App() {
   return (
     <TonConnectUIProvider
       manifestUrl={manifestUrl}
-      actionsConfiguration={{
-        twaReturnUrl: "https://t.me/solarversx_bot?startapp=solarverse"
-      }}
+      actionsConfiguration={{ twaReturnUrl }}
     >
       <div
         style={{

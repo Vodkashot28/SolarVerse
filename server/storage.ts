@@ -76,7 +76,9 @@ class DBStorage implements IStorage {
         .values({
           ...entry,
           totalTokens: entry.totalTokens ?? 0,
-          planetsDiscovered: entry.planetsDiscovered ?? 0
+          planetsDiscovered: entry.planetsDiscovered ?? 0,
+          lastActive: new Date(),
+          createdAt: new Date()
         })
         .returning();
       return inserted[0];
@@ -102,7 +104,8 @@ class MemStorage implements IStorage {
   async createUser(insertUser: InsertUser): Promise<User> {
     const user: User = {
       id: this.nextUserId++,
-      ...insertUser
+      ...insertUser,
+      createdAt: new Date() // ✅ added to satisfy schema
     };
     this.users.push(user);
     return user;
@@ -120,8 +123,8 @@ class MemStorage implements IStorage {
     if (existing) {
       Object.assign(existing, {
         ...entry,
-        totalTokens: entry.totalTokens ?? 0,
-        planetsDiscovered: entry.planetsDiscovered ?? 0,
+        totalTokens: entry.totalTokens ?? existing.totalTokens,
+        planetsDiscovered: entry.planetsDiscovered ?? existing.planetsDiscovered,
         lastActive: new Date()
       });
       return existing;
@@ -133,7 +136,7 @@ class MemStorage implements IStorage {
         totalTokens: entry.totalTokens ?? 0,
         planetsDiscovered: entry.planetsDiscovered ?? 0,
         lastActive: new Date(),
-        createdAt: new Date()
+        createdAt: new Date() // ✅ added to satisfy schema
       };
       this.leaderboard.push(newEntry);
       return newEntry;
