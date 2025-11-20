@@ -1,37 +1,33 @@
 // server/index.ts
 
 import express, { type Request, Response, NextFunction } from "express";
-import cors from "cors"; // <--- ADDED: Import CORS middleware
+import cors from "cors";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
-// --- 1. CORS CONFIGURATION ---
-// This middleware is crucial for allowing API requests from different origins,
-// such as your deployed site (solar-system.xyz) and the Telegram Web App.
+// --- CORS CONFIGURATION ---
 app.use(cors({
-    // Explicitly define allowed origins based on your deployment structure
-    origin: [
-        "https://solar-system.xyz", // Your main site
-        /^https:\/\/t\.me\/.*solarversx_bot/, // Regex for your TWA return URL pattern from tonconnect-manifest.json
-        "http://localhost:5000", // For local development
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
-    credentials: true,
+  origin: [
+    "https://solar-system.xyz", // main site
+    /^https:\/\/t\.me\/.*solarversx_bot/, // Telegram WebApp return URL
+    "http://localhost:5000", // local dev
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
+  credentials: true,
 }));
-// -----------------------------
 
+// --- JSON & URLENCODED ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Logging middleware for API routes
+// --- Logging middleware ---
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
   let capturedJsonResponse: Record<string, any> | undefined;
 
-  // Intercept res.json to capture the response body for logging
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
@@ -55,8 +51,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// --- Async bootstrap ---
 (async () => {
-  const server = await registerRoutes(app);
+  // Register API routes
+  await registerRoutes(app);
 
   // Error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -67,19 +65,18 @@ app.use((req, res, next) => {
   });
 
   if (app.get("env") === "development") {
-    // Local dev: run Vite middleware
-    await setupVite(app, server);
+    // Dev: Vite middleware
+    await setupVite(app, undefined as any);
   } else {
-    // Production: serve static assets 
-    serveStatic(app); // Note: Make sure serveStatic in vite.ts uses the correct path to the 'dist' folder
+    // Prod: serve dist/
+    serveStatic(app);
   }
 
-  // Always listen on port 5000 locally
   const port = 5000;
-  server.listen({ port, host: "0.0.0.0", reusePort: true }, () => {
+  app.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
 })();
 
-// Export app for serverless runtimes (e.g. Vercel)
+// Export app for serverless runtimes
 export default app;
