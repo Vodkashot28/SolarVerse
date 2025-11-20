@@ -1,8 +1,27 @@
+// server/index.ts
+
 import express, { type Request, Response, NextFunction } from "express";
+import cors from "cors"; // <--- ADDED: Import CORS middleware
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// --- 1. CORS CONFIGURATION ---
+// This middleware is crucial for allowing API requests from different origins,
+// such as your deployed site (solar-system.xyz) and the Telegram Web App.
+app.use(cors({
+    // Explicitly define allowed origins based on your deployment structure
+    origin: [
+        "https://solar-system.xyz", // Your main site
+        /^https:\/\/t\.me\/.*solarversx_bot/, // Regex for your TWA return URL pattern from tonconnect-manifest.json
+        "http://localhost:5000", // For local development
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
+    credentials: true,
+}));
+// -----------------------------
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -12,6 +31,7 @@ app.use((req, res, next) => {
   const path = req.path;
   let capturedJsonResponse: Record<string, any> | undefined;
 
+  // Intercept res.json to capture the response body for logging
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
@@ -50,8 +70,8 @@ app.use((req, res, next) => {
     // Local dev: run Vite middleware
     await setupVite(app, server);
   } else {
-    // Production: serve static assets if not on Vercel
-    serveStatic(app);
+    // Production: serve static assets 
+    serveStatic(app); // Note: Make sure serveStatic in vite.ts uses the correct path to the 'dist' folder
   }
 
   // Always listen on port 5000 locally
