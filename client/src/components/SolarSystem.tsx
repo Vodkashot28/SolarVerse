@@ -1,8 +1,10 @@
+// client/src/components/SolarSystem.tsx
+
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense } from "react";
-// ⚠️ 1. Import the Heart model components with the correct relative path
-import { Instances, Model } from "../HeartModel"; 
+// FIX: Only import Model, as Instances was removed from HeartModel.tsx
+import { Model } from "../HeartModel"; 
 import { Sun } from "@/components/Sun";
 import { Planet } from "@/components/Planet";
 import { planetsData } from "@/data/planets";
@@ -12,7 +14,7 @@ import * as THREE from "three";
 
 export function SolarSystem() {
   return (
-    <>
+    <> {/* START Fragment */}
       <Canvas
         camera={{
           position: [0, 30, 60],
@@ -41,14 +43,10 @@ export function SolarSystem() {
             <Planet key={planet.name} data={planet} />
           ))}
 
-          {/* 2. HEART MODEL INTEGRATION: */}
-          {/* Use <Instances> to load the geometry once for performance */}
-          <Instances>
-            {/* Render the actual Heart objects at specific coordinates */}
-            <Model position={[10, 5, 0]} /> 
-            <Model position={[-10, -5, 0]} /> 
-          </Instances>
-          
+          {/* FIX: Removed <Instances> wrapper. Using 'name' instead of 'id'. */}
+          <Model position={[10, 5, 0]} name="heart_1" />
+          <Model position={[-10, -5, 0]} name="heart_2" />
+
           <OrbitControls
             enablePan={true}
             enableZoom={true}
@@ -59,11 +57,11 @@ export function SolarSystem() {
             minPolarAngle={Math.PI / 4}
           />
         </Suspense>
-      </Canvas>
+      </Canvas> {/* END Canvas */}
 
       {/* These are your 2D UI overlays that render outside the 3D Canvas */}
       <GameUI />
       <PlanetFactCard />
-    </>
+    </> 
   );
 }
