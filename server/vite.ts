@@ -68,8 +68,9 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
+// 🎯 CORRECTED FUNCTION: Simpler and more reliable SPA fallback
 export function serveStatic(app: Express) {
-  // ✅ Correct path: dist/
+  // Correct path: dist/
   const distPath = path.resolve(__dirname, "..", "dist");
 
   if (!fs.existsSync(distPath)) {
@@ -78,14 +79,14 @@ export function serveStatic(app: Express) {
     );
   }
 
-  // Serve static assets from dist
+  // 1. Serve static assets from dist
+  // This will handle the main index.html file, as well as all JS/CSS/image assets
   app.use(express.static(distPath));
 
-  // Fallback only for non-asset routes
-  app.use((req, res, next) => {
-    if (req.path.startsWith("/assets")) {
-      return next(); // let express.static handle assets
-    }
+  // 2. Fallback for Single Page Application (SPA) routing
+  // This catch-all route ensures that any request not handled by express.static
+  // (e.g., a direct visit to /leaderboard) gets sent the index.html file.
+  app.get('*', (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
