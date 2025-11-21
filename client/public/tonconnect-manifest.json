@@ -1,8 +1,8 @@
 {
-  "url": "https://solar-system.xyz",
+  "url": "https://solar-verse.vercel.app",
   "name": "SolarVerse",
-  "iconUrl": "https://solar-system.xyz/icon.png",
-  "termsOfUseUrl": "https://solar-system.xyz/terms.html",
-  "privacyPolicyUrl": "https://solar-system.xyz/privacy.html",
+  "iconUrl": "https://solar-verse.vercel.app/icon.png",
+  "termsOfUseUrl": "https://solar-verse.vercel.app/terms.html",
+  "privacyPolicyUrl": "https://solar-verse.vercel.app/privacy.html",
   "twaReturnUrl": "https://t.me/solarversx_bot?startapp=solarverse"
 }
