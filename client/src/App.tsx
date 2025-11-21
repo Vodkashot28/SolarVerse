@@ -1,33 +1,27 @@
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { SolarSystem } from "./components/SolarSystem";
-import { GameUI } from "./components/GameUI";
-import "@fontsource/inter";
+import { useState, useEffect } from "react";
+import { Switch, Route } from "wouter";
+import "./index.css";
+import LeaderboardPage from "./pages/LeaderBoard";
+import WalletPage from "./pages/Wallet";
+import Home from "./pages/Home";
+import NotFound from "./pages/not-found";
 
-// Values pulled from .env (must be prefixed with VITE_)
-const manifestUrl = import.meta.env.VITE_MANIFEST_URL;
-const twaReturnUrl = import.meta.env.VITE_TWA_RETURN_URL;
+export default function App() {
+  const [tokens, setTokens] = useState(50);
+  const [discovered, setDiscovered] = useState(4);
 
-function App() {
+  useEffect(() => {
+    // Future: fetch user progress from TON wallet or backend
+  }, []);
+
   return (
-    <TonConnectUIProvider
-      manifestUrl={manifestUrl}
-      actionsConfiguration={{ twaReturnUrl }}
-    >
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background Solar System Canvas */}
-        <SolarSystem />
-        {/* Overlay HUD */}
-        <GameUI />
-      </div>
-    </TonConnectUIProvider>
+    <main className="solarverse">
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/leaderboard" component={LeaderboardPage} />
+        <Route path="/wallet" component={WalletPage} />
+        <Route component={NotFound} />
+      </Switch>
+    </main>
   );
 }
-
-export default App;
